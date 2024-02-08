@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { padWithZeroes } from "./timerUtils";
 
 import ModeDescription from "./ModeDescription";
@@ -20,8 +20,9 @@ export default function Timer({
   mode,
   setMode,
 }: TimerProps) {
-  const sound = new Audio(workOverSound);
-  sound.loop = false;
+  const sound = useRef<HTMLAudioElement | undefined>(
+    typeof Audio !== "undefined" ? new Audio("") : undefined
+  );
 
   useEffect(() => {
     setSecondsRemaining(currentTimeMinutes * 60);
