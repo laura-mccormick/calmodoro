@@ -1,95 +1,72 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client";
+import Timer from "../timer/Timer";
+import WorkTimeEntry from "../input/TimeEntry";
+import AllowChangeTimesCheckbox from "../input/AllowChangeTimesCheckbox";
+import Attributions from "./Attributions";
+import styles from "./page.module.css";
+import { useEffect, useState } from "react";
+import { Mode } from "../timer/timerUtils";
+import TimeEntry from "../input/TimeEntry";
 
 export default function Home() {
+  const [mode, setMode] = useState(Mode.WORK);
+  const [workTimeMinutes, setWorkTimeMinutes] = useState(20);
+  const [breakTimeMinutes, setBreakTimeMinutes] = useState(5);
+  const [currentTimeMinutes, setCurrentTimeMinutes] = useState(workTimeMinutes);
+  const [allowChangeTimes, setAllowChangeTimes] = useState(true);
+
+  useEffect(() => {
+    if (mode == Mode.WORK) {
+      setCurrentTimeMinutes(workTimeMinutes);
+    } else {
+      setCurrentTimeMinutes(breakTimeMinutes);
+    }
+  }, [mode]);
+
+  useEffect(() => {
+    if (mode == Mode.WORK) {
+      setCurrentTimeMinutes(workTimeMinutes);
+    }
+  }, [workTimeMinutes]);
+
+  useEffect(() => {
+    if (mode == Mode.BREAK) {
+      setCurrentTimeMinutes(breakTimeMinutes);
+    }
+  }, [breakTimeMinutes]);
+
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+      <AllowChangeTimesCheckbox
+        allowChangeTimes={allowChangeTimes}
+        setAllowChangeTimes={setAllowChangeTimes}
+      />
+      {allowChangeTimes && (
+        <>
+          <TimeEntry
+            allowChangeTimes={allowChangeTimes}
+            timeMinutes={workTimeMinutes}
+            setTimeMinutes={setWorkTimeMinutes}
+            mode={Mode.WORK}
+          />
+          <TimeEntry
+            allowChangeTimes={allowChangeTimes}
+            timeMinutes={breakTimeMinutes}
+            setTimeMinutes={setBreakTimeMinutes}
+            mode={Mode.BREAK}
+          />
+        </>
+      )}
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
+      <div className={styles.timer}>
+        <Timer
+          currentTimeMinutes={currentTimeMinutes}
+          mode={mode}
+          setMode={setMode}
         />
       </div>
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+      <Attributions />
     </main>
-  )
+  );
 }

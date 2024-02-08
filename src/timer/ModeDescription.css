@@ -1,0 +1,12 @@
+.description {
+  font-family: "Oswald";
+  font-size: 30px;
+}
+
+.workDescription {
+  color: rgb(226, 148, 161);
+}
+
+.breakDescription {
+  color: rgb(148, 148, 226);
+}
