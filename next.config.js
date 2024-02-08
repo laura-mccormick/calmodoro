@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
+  output: "export",
   webpack(config, options) {
     config.module.rules.push({
       test: /\.(mp3)$/,
