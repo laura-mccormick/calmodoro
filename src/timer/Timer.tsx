@@ -21,7 +21,7 @@ export default function Timer({
   setMode,
 }: TimerProps) {
   const sound = useRef<HTMLAudioElement | undefined>(
-    typeof Audio !== "undefined" ? new Audio("") : undefined
+    typeof Audio !== "undefined" ? new Audio(workOverSound) : undefined
   );
 
   useEffect(() => {
