@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
+  output: "export",
   basePath: "/pomodoro",
   webpack(config, options) {
     config.module.rules.push({
-      output: "export",
       test: /\.(mp3)$/,
       type: "asset/resource",
       generator: {
