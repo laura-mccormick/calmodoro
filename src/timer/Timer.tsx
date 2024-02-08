@@ -38,7 +38,7 @@ export default function Timer({
       if (secondsRemaining > 0) {
         setSecondsRemaining((secondsRemaining) => secondsRemaining - 1);
       } else {
-        sound.play();
+        sound.current?.play();
         mode == Mode.WORK ? setMode(Mode.BREAK) : setMode(Mode.WORK);
         clearInterval(intervalId);
       }
