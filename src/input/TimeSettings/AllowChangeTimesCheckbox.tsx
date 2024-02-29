@@ -17,7 +17,7 @@ export default function WorkTimeEntry({
         checked={allowChangeTimes}
         onChange={() => setAllowChangeTimes(!allowChangeTimes)}
       />
-      <label htmlFor="allowChangeTimes"> Allow changing times</label>
+      <label htmlFor="allowChangeTimes"> Set times</label>
     </div>
   );
 }

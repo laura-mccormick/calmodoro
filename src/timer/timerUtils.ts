@@ -8,5 +8,6 @@ export function padWithZeroes(numberToPad: number): string {
 
 export enum Mode {
   WORK,
-  BREAK,
+  SHORT_BREAK,
+  LONG_BREAK,
 }

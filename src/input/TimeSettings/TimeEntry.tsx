@@ -1,11 +1,18 @@
 import React from "react";
-import { Mode } from "../timer/timerUtils";
+import { Mode } from "../../timer/timerUtils";
+import "./TimeEntry.css";
 
 type TimeEntryProps = {
   allowChangeTimes: boolean;
   timeMinutes: number;
   setTimeMinutes: Function;
   mode: Mode;
+};
+
+const inputLabel = {
+  [Mode.WORK]: "Work",
+  [Mode.SHORT_BREAK]: "Short break",
+  [Mode.LONG_BREAK]: "Long break",
 };
 
 export default function TimeEntry({
@@ -15,10 +22,8 @@ export default function TimeEntry({
   mode,
 }: TimeEntryProps) {
   return (
-    <div>
-      <label htmlFor="timeMinutes">
-        {mode == Mode.WORK ? "Work time (minutes): " : "Break time (minutes): "}
-      </label>
+    <div className="timeEntry">
+      <label htmlFor="timeMinutes">{inputLabel[mode]}</label>
       <input
         type="number"
         disabled={!allowChangeTimes}

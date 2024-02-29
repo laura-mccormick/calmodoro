@@ -2,16 +2,32 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 6rem;
   min-height: 100vh;
 }
 
 .timer {
+  padding-top: 15% !important;
   width: 100vw;
-  height: 100vh;
   margin: 0;
   padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.pauseButton {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10% !important;
+}
+
+.attributions {
+  color: #a19194;
+  white-space: pre;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+.attributions > a {
+  color: #c6bebf;
 }

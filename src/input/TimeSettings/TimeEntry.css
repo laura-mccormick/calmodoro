@@ -1,0 +1,10 @@
+.timeEntry {
+  display: grid;
+  max-width: 25%;
+  padding: 10px;
+
+  input {
+    padding: 5px;
+    align-items: center;
+  }
+}

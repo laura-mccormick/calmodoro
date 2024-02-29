@@ -12,13 +12,15 @@ import workOverSound from "../sounds/workOver.mp3";
 type TimerProps = {
   currentTimeMinutes: number;
   mode: Mode;
-  setMode: Function;
+  incrementCycleIndex: Function;
+  paused: boolean;
 };
 
 export default function Timer({
   currentTimeMinutes,
   mode,
-  setMode,
+  incrementCycleIndex,
+  paused = false,
 }: TimerProps) {
   const sound = useRef<HTMLAudioElement | undefined>(
     typeof Audio !== "undefined" ? new Audio(workOverSound) : undefined
@@ -35,16 +37,18 @@ export default function Timer({
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      if (secondsRemaining > 0) {
-        setSecondsRemaining((secondsRemaining) => secondsRemaining - 1);
-      } else {
-        sound.current?.play();
-        mode == Mode.WORK ? setMode(Mode.BREAK) : setMode(Mode.WORK);
-        clearInterval(intervalId);
+      if (!paused) {
+        if (secondsRemaining > 0) {
+          setSecondsRemaining((secondsRemaining) => secondsRemaining - 1);
+        } else {
+          sound.current?.play();
+          incrementCycleIndex();
+          clearInterval(intervalId);
+        }
       }
     }, 1000);
     return () => clearInterval(intervalId);
-  }, [secondsRemaining]);
+  }, [secondsRemaining, paused]);
 
   return (
     <div className="timer">

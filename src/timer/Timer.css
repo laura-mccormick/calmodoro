@@ -1,7 +1,8 @@
 .workTimer {
-  width: 600px;
+  padding: 3rem;
   height: 100px;
   border: 2px solid rgb(226, 148, 161);
+  border-radius: 5px;
 
   font-family: "Oswald";
   font-size: 30px;
@@ -12,7 +13,7 @@
 }
 
 .breakTimer {
-  width: 600px;
+  padding: 3rem;
   height: 100px;
   border: 2px solid rgb(148, 148, 226);
 

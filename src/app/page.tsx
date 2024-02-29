@@ -1,25 +1,50 @@
 "use client";
 import Timer from "../timer/Timer";
-import WorkTimeEntry from "../input/TimeEntry";
-import AllowChangeTimesCheckbox from "../input/AllowChangeTimesCheckbox";
+import TimeSettings from "../input/TimeSettings/TimeSettings";
 import Attributions from "./Attributions";
 import styles from "./page.module.css";
+import { Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Mode } from "../timer/timerUtils";
-import TimeEntry from "../input/TimeEntry";
+import PauseButton from "@/input/PauseButton";
 
 export default function Home() {
+  const pomodoroCycle = [
+    Mode.WORK,
+    Mode.SHORT_BREAK,
+    Mode.WORK,
+    Mode.SHORT_BREAK,
+    Mode.WORK,
+    Mode.SHORT_BREAK,
+    Mode.WORK,
+    Mode.LONG_BREAK,
+  ];
+
   const [mode, setMode] = useState(Mode.WORK);
   const [workTimeMinutes, setWorkTimeMinutes] = useState(20);
-  const [breakTimeMinutes, setBreakTimeMinutes] = useState(5);
+  const [shortBreakTimeMinutes, setShortBreakTimeMinutes] = useState(5);
+  const [longBreakTimeMinutes, setLongBreakTimeMinutes] = useState(15);
   const [currentTimeMinutes, setCurrentTimeMinutes] = useState(workTimeMinutes);
-  const [allowChangeTimes, setAllowChangeTimes] = useState(true);
+  const [paused, setPaused] = useState(true);
+  const [cycleIndex, setCycleIndex] = useState(0);
+
+  const incrementCycleIndex = () => {
+    setCycleIndex(cycleIndex + 1);
+  };
+
+  useEffect(() => {
+    setMode(pomodoroCycle[cycleIndex]);
+  }, [cycleIndex]);
 
   useEffect(() => {
     if (mode == Mode.WORK) {
       setCurrentTimeMinutes(workTimeMinutes);
     } else {
-      setCurrentTimeMinutes(breakTimeMinutes);
+      if (mode == Mode.SHORT_BREAK) {
+        setCurrentTimeMinutes(shortBreakTimeMinutes);
+      } else {
+        setCurrentTimeMinutes(longBreakTimeMinutes);
+      }
     }
   }, [mode]);
 
@@ -30,43 +55,63 @@ export default function Home() {
   }, [workTimeMinutes]);
 
   useEffect(() => {
-    if (mode == Mode.BREAK) {
-      setCurrentTimeMinutes(breakTimeMinutes);
+    if (mode == Mode.SHORT_BREAK) {
+      setCurrentTimeMinutes(shortBreakTimeMinutes);
     }
-  }, [breakTimeMinutes]);
+  }, [shortBreakTimeMinutes]);
+
+  useEffect(() => {
+    if (mode == Mode.LONG_BREAK) {
+      setCurrentTimeMinutes(longBreakTimeMinutes);
+    }
+  }, [longBreakTimeMinutes]);
 
   return (
     <main className={styles.main}>
-      <AllowChangeTimesCheckbox
-        allowChangeTimes={allowChangeTimes}
-        setAllowChangeTimes={setAllowChangeTimes}
-      />
-      {allowChangeTimes && (
-        <>
-          <TimeEntry
-            allowChangeTimes={allowChangeTimes}
-            timeMinutes={workTimeMinutes}
-            setTimeMinutes={setWorkTimeMinutes}
-            mode={Mode.WORK}
-          />
-          <TimeEntry
-            allowChangeTimes={allowChangeTimes}
-            timeMinutes={breakTimeMinutes}
-            setTimeMinutes={setBreakTimeMinutes}
-            mode={Mode.BREAK}
-          />
-        </>
-      )}
+      <Grid container spacing={2}>
+        {/* Timer row */}
+        <Grid item xs={12}>
+          <div className={styles.timer}>
+            <Timer
+              currentTimeMinutes={currentTimeMinutes}
+              mode={mode}
+              incrementCycleIndex={incrementCycleIndex}
+              paused={paused}
+            />
+          </div>
+        </Grid>
 
-      <div className={styles.timer}>
-        <Timer
-          currentTimeMinutes={currentTimeMinutes}
-          mode={mode}
-          setMode={setMode}
-        />
-      </div>
+        {/* Pause button row */}
+        <Grid item xs={3} />
+        <Grid item xs={6}>
+          <div className={styles.pauseButton}>
+            <PauseButton paused={paused} setPaused={setPaused} />
+          </div>
+        </Grid>
+        <Grid item xs={3} />
 
-      <Attributions />
+        {/* Settings row */}
+        <Grid item xs={2} />
+        <Grid item xs={12} md={4} />
+        <Grid item xs={12} md={4}>
+          <TimeSettings
+            workTimeMinutes={workTimeMinutes}
+            setWorkTimeMinutes={setWorkTimeMinutes}
+            shortBreakTimeMinutes={shortBreakTimeMinutes}
+            setShortBreakTimeMinutes={setShortBreakTimeMinutes}
+            longBreakTimeMinutes={longBreakTimeMinutes}
+            setLongBreakTimeMinutes={setLongBreakTimeMinutes}
+          />
+        </Grid>
+        <Grid item xs={2} />
+
+        {/* Attributions row */}
+        <Grid item xs={3} />
+        <Grid item xs={6}>
+          <Attributions />
+        </Grid>
+        <Grid item xs={3} />
+      </Grid>
     </main>
   );
 }
