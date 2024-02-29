@@ -1,0 +1,22 @@
+.cycle {
+  &__0 {
+    color: #e294a1;
+    opacity: 45%;
+
+    &__current {
+      color: #e294a1;
+      font-weight: bold;
+    }
+  }
+
+  &__1,
+  &__2 {
+    color: #9494e2;
+    opacity: 45%;
+
+    &__current {
+      color: #9494e2;
+      font-weight: bold;
+    }
+  }
+}

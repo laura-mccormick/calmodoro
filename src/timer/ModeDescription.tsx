@@ -11,7 +11,11 @@ export default function ModeDescription({ mode }: ModeDescriptionProps) {
       <div
         className={mode == Mode.WORK ? "workDescription" : "breakDescription"}
       >
-        {mode == Mode.WORK ? "Work" : "Short Break"}
+        {mode == Mode.WORK
+          ? "Work"
+          : mode == Mode.SHORT_BREAK
+          ? "Short Break"
+          : "Long Break"}
       </div>
     </div>
   );

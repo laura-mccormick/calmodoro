@@ -7,6 +7,7 @@ import { Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Mode } from "../timer/timerUtils";
 import PauseButton from "@/input/PauseButton";
+import CycleSettings from "@/input/CycleSettings/CycleSettings";
 
 export default function Home() {
   const pomodoroCycle = [
@@ -91,9 +92,14 @@ export default function Home() {
         <Grid item xs={3} />
 
         {/* Settings row */}
-        <Grid item xs={2} />
-        <Grid item xs={12} md={4} />
-        <Grid item xs={12} md={4}>
+        <Grid item xs={4} />
+        <Grid item xs={12} md={2}>
+          <CycleSettings
+            pomodoroCycle={pomodoroCycle}
+            cycleIndex={cycleIndex}
+          />
+        </Grid>
+        <Grid item xs={12} md={2}>
           <TimeSettings
             workTimeMinutes={workTimeMinutes}
             setWorkTimeMinutes={setWorkTimeMinutes}
@@ -103,7 +109,7 @@ export default function Home() {
             setLongBreakTimeMinutes={setLongBreakTimeMinutes}
           />
         </Grid>
-        <Grid item xs={2} />
+        <Grid item xs={4} />
 
         {/* Attributions row */}
         <Grid item xs={3} />
