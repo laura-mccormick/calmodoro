@@ -13,7 +13,7 @@ export default function CycleSettings({
   pomodoroCycle,
   cycleIndex,
 }: CycleSettingsProps) {
-  const [allowChangeCycle, setAllowChangeCycle] = useState(true);
+  const [allowChangeCycle, setAllowChangeCycle] = useState(false);
 
   return (
     <div className={styles.settings}>

@@ -10,6 +10,7 @@ import PauseButton from "@/input/PauseButton";
 import CycleSettings from "@/input/CycleSettings/CycleSettings";
 
 import ambienceOceanSound from "../sounds/ambienceOcean.mp3";
+import SoundSettings from "@/input/SoundSettings/SoundSettings";
 
 export default function Home() {
   const pomodoroCycle = [
@@ -77,7 +78,7 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      <Grid container spacing={2}>
+      <Grid container spacing={1}>
         {/* Timer row */}
         <Grid item xs={12}>
           <div className={styles.timer}>
@@ -100,15 +101,14 @@ export default function Home() {
         <Grid item xs={3} />
 
         {/* Settings row */}
-        <Grid item xs={1} md={4} />
-        <Grid item xs={11} md={2}>
+
+        <Grid item xs={12} md={3} className={styles.settingBox}>
           <CycleSettings
             pomodoroCycle={pomodoroCycle}
             cycleIndex={cycleIndex}
           />
         </Grid>
-        <Grid item xs={1} md={0} />
-        <Grid item xs={11} md={2}>
+        <Grid item xs={12} md={3} className={styles.settingBox}>
           <TimeSettings
             workTimeMinutes={workTimeMinutes}
             setWorkTimeMinutes={setWorkTimeMinutes}
@@ -118,7 +118,10 @@ export default function Home() {
             setLongBreakTimeMinutes={setLongBreakTimeMinutes}
           />
         </Grid>
-        <Grid item md={4} />
+        <Grid item xs={12} md={3} className={styles.settingBox}>
+          <SoundSettings />
+        </Grid>
+        <Grid item xs={12} md={3} className={styles.settingBox} />
 
         {/* Attributions row */}
         <Grid item xs={3} />

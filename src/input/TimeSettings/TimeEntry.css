@@ -6,5 +6,8 @@
   input {
     padding: 5px;
     align-items: center;
+    border-radius: 7px;
+    border: none;
+    margin-top: 3px;
   }
 }

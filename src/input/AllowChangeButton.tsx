@@ -17,7 +17,7 @@ export default function AllowChangeButton({
       <input
         type="button"
         className="allowChangeButton"
-        value={label}
+        value={`${allowChange ? "▼" : "►"} ${label}`}
         onClick={() => setAllowChange(!allowChange)}
       />
     </>
