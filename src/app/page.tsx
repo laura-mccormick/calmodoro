@@ -4,10 +4,12 @@ import TimeSettings from "../input/TimeSettings/TimeSettings";
 import Attributions from "./Attributions";
 import styles from "./page.module.css";
 import { Grid } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Mode } from "../timer/timerUtils";
 import PauseButton from "@/input/PauseButton";
 import CycleSettings from "@/input/CycleSettings/CycleSettings";
+
+import ambienceOceanSound from "../sounds/ambienceOcean.mp3";
 
 export default function Home() {
   const pomodoroCycle = [
@@ -30,8 +32,12 @@ export default function Home() {
   const [cycleIndex, setCycleIndex] = useState(0);
 
   const incrementCycleIndex = () => {
-    setCycleIndex(cycleIndex + 1);
+    setCycleIndex(cycleIndex > 7 ? cycleIndex + 1 : 0);
   };
+
+  const sound = useRef<HTMLAudioElement | undefined>(
+    typeof Audio !== "undefined" ? new Audio(ambienceOceanSound) : undefined
+  );
 
   useEffect(() => {
     setMode(pomodoroCycle[cycleIndex]);
@@ -52,6 +58,8 @@ export default function Home() {
   useEffect(() => {
     if (mode == Mode.WORK) {
       setCurrentTimeMinutes(workTimeMinutes);
+
+      sound.current?.play();
     }
   }, [workTimeMinutes]);
 
@@ -92,14 +100,15 @@ export default function Home() {
         <Grid item xs={3} />
 
         {/* Settings row */}
-        <Grid item xs={4} />
-        <Grid item xs={12} md={2}>
+        <Grid item xs={1} md={4} />
+        <Grid item xs={11} md={2}>
           <CycleSettings
             pomodoroCycle={pomodoroCycle}
             cycleIndex={cycleIndex}
           />
         </Grid>
-        <Grid item xs={12} md={2}>
+        <Grid item xs={1} md={0} />
+        <Grid item xs={11} md={2}>
           <TimeSettings
             workTimeMinutes={workTimeMinutes}
             setWorkTimeMinutes={setWorkTimeMinutes}
@@ -109,7 +118,7 @@ export default function Home() {
             setLongBreakTimeMinutes={setLongBreakTimeMinutes}
           />
         </Grid>
-        <Grid item xs={4} />
+        <Grid item md={4} />
 
         {/* Attributions row */}
         <Grid item xs={3} />

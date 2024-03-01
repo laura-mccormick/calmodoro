@@ -35,7 +35,9 @@
 .settings {
   background: rgb(236 235 227 / 15%);
   border-radius: 5px;
-  width: fit-content;
+  width: 250px;
+  max-height: 250px;
   padding: 15px;
   margin-top: 10px;
+  display: grid;
 }

@@ -54,10 +54,14 @@ export default function Timer({
     <div className="timer">
       <ModeDescription mode={mode} />
       <div className={mode == Mode.WORK ? "workTimer" : "breakTimer"}>
-        <span className="twoCharacters">{minutes}</span>
-        <span>m</span>
-        <span className="twoCharacters">{seconds}</span>
-        <span>s</span>
+        <span className={`twoCharacters${paused ? " paused" : ""}`}>
+          {minutes}
+        </span>
+        <span className={`${paused ? " paused" : ""}`}>m</span>
+        <span className={`twoCharacters${paused ? " paused" : ""}`}>
+          {seconds}
+        </span>
+        <span className={`${paused ? " paused" : ""}`}>s</span>
       </div>
     </div>
   );

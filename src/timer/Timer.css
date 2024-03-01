@@ -33,3 +33,7 @@
 .two-numbers {
   width: 2ch;
 }
+
+.paused {
+  opacity: 60%;
+}

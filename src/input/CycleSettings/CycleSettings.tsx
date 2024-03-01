@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Mode } from "../../timer/timerUtils";
-import AllowChangeCheckbox from "../AllowChangeCheckbox";
+import AllowChangeCheckbox from "../AllowChangeButton";
 import "./CycleSettings.scss";
 import styles from "../../app/page.module.css";
 
@@ -16,14 +16,14 @@ export default function CycleSettings({
   const [allowChangeCycle, setAllowChangeCycle] = useState(true);
 
   return (
-    <div>
+    <div className={styles.settings}>
       <AllowChangeCheckbox
         allowChange={allowChangeCycle}
         setAllowChange={setAllowChangeCycle}
-        label={"See cycle"}
+        label={"Cycle"}
       />
       {allowChangeCycle && (
-        <div className={styles.settings}>
+        <div>
           {pomodoroCycle.map((mode, index) => (
             <div
               key={index}

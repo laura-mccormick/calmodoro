@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AllowChangeCheckbox from "../AllowChangeCheckbox";
+import AllowChangeCheckbox from "../AllowChangeButton";
 import TimeEntry from "./TimeEntry";
 import { Mode } from "../../timer/timerUtils";
 import styles from "../../app/page.module.css";
@@ -24,14 +24,14 @@ export default function TimeSettings({
   const [allowChangeTimes, setAllowChangeTimes] = useState(false);
 
   return (
-    <div>
+    <div className={styles.settings}>
       <AllowChangeCheckbox
         allowChange={allowChangeTimes}
         setAllowChange={setAllowChangeTimes}
-        label={"Set times"}
+        label={"Times"}
       />
       {allowChangeTimes && (
-        <div className={styles.settings}>
+        <div>
           <TimeEntry
             allowChangeTimes={allowChangeTimes}
             timeMinutes={workTimeMinutes}
